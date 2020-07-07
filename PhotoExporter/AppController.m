@@ -6,6 +6,7 @@
 //  Copyright © 2020 chiyouhen. All rights reserved.
 //
 
+#import <Photos/Photos.h>
 #import "AppController.h"
 
 @implementation AppController
@@ -29,6 +30,8 @@
 - (IBAction) btnSubmit: (id) sender
 {
     [txtSummary setStringValue: [NSString stringWithFormat: @"from %@ to %@ under %@", [dpBegin dateValue], [dpEnd dateValue], [txtDirectoryPath stringValue]]];
+
+
 }
 
 @end

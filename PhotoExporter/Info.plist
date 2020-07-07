@@ -30,6 +30,8 @@
 	<string>NSApplication</string>
 	<key>NSSupportsAutomaticTermination</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Export photos with formatted title.</string>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
 </dict>

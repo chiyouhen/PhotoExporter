@@ -6,6 +6,7 @@
 //  Copyright © 2020 chiyouhen. All rights reserved.
 //
 
+#import <Photos/Photos.h>
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
@@ -17,6 +18,17 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
+        if (status != PHAuthorizationStatusAuthorized) {
+            NSAlert* alert = [[NSAlert alloc] init];
+            [alert setAlertStyle: NSAlertStyleCritical];
+            [alert setMessageText: @"Please grant the permission of photo album access"];
+            [alert beginSheetModalForWindow: [self window]];
+            [alert runModal];
+            
+        }
+    }];
+    
 }
 
 
