@@ -7,11 +7,34 @@
 //
 
 #import <Photos/Photos.h>
+#import <CoreLocation/CoreLocation.h>
+#import <Contacts/Contacts.h>
 #import "AppController.h"
-
+#import "AppDelegate.h"
+void handlePHAsset(PHAsset* asset, NSUInteger idx, BOOL* stop) {
+    NSLog(@"idx %ld, creationDate: %@", idx, [asset creationDate]);
+    CLLocation* assetLocation = [asset location];
+    CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation: assetLocation
+                  completionHandler:^(NSArray<CLPlacemark*>* placemarks, NSError* error) {
+        for (CLPlacemark* placemark in placemarks) {
+            NSLog(@"stop %d, index %ld, creationDate: %@, location: (%f,%f)%@[%@-%@-%@-%@-%@-%@]", stop, idx, [asset creationDate],
+                  [assetLocation coordinate].latitude, [assetLocation coordinate].longitude,
+                  [placemark name], [placemark country], [placemark administrativeArea], [placemark subAdministrativeArea], [placemark locality], [placemark subLocality], [placemark thoroughfare]);
+        }
+        *stop = NO;
+    }];
+}
 @implementation AppController
-- (IBAction) btnSelectDirectory: (id) sender
-{
+
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    NSDate* now = [NSDate date];
+    [dpBegin setDateValue: now];
+    [dpEnd setDateValue: now];
+    NSLog(@"now %@", now);
+}
+- (IBAction) btnSelectDirectory: (id) sender {
     NSOpenPanel* dirDlg = [NSOpenPanel openPanel];
     [dirDlg setCanChooseFiles: NO];
     [dirDlg setCanChooseDirectories: YES];
@@ -22,16 +45,44 @@
         NSArray* directories = [dirDlg URLs];
         NSLog(@"%@", directories);
         NSString* path = [directories[0] path];
-        NSLog(path);
+        NSLog(@"%s", path);
         [txtDirectoryPath setStringValue: path];
     }
 }
 
-- (IBAction) btnSubmit: (id) sender
-{
+- (IBAction) btnSubmit: (id) sender {
+    AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
+    NSLog(@"%@", appDelegate);
+    [appDelegate setTmp: @"test"];
+    
     [txtSummary setStringValue: [NSString stringWithFormat: @"from %@ to %@ under %@", [dpBegin dateValue], [dpEnd dateValue], [txtDirectoryPath stringValue]]];
+    PHFetchOptions* fetchOptions = [[PHFetchOptions alloc] init];
+    [fetchOptions setPredicate: [NSPredicate predicateWithFormat: @"(creationDate >= %@) AND (creationDate <= %@)", [dpBegin dateValue], [dpEnd dateValue]]];
+    PHFetchResult<PHAsset*>* fetchResult = [PHAsset fetchAssetsWithOptions: fetchOptions];
+    NSLog(@"got %ld items", [fetchResult count]);
 
+    [fetchResult enumerateObjectsUsingBlock: ^(PHAsset* asset, NSUInteger idx, BOOL* stop) {
+        NSLog(@"idx %ld, creationDate: %@", idx, [asset creationDate]);
+        CLLocation* assetLocation = [asset location];
+        CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+        [geocoder reverseGeocodeLocation: assetLocation
+                         preferredLocale: [NSLocale localeWithLocaleIdentifier: @"zh_CN"]
+                      completionHandler:^(NSArray<CLPlacemark*>* placemarks, NSError* error) {
+            NSLog(@"geocoder, idx %ld, error: %@", idx, error);
+            for (CLPlacemark* placemark in placemarks) {
+                /*
+                NSLog(@"stop %d, index %ld, creationDate: %@, location: (%f,%f)%@[%@-%@-%@-%@-%@-%@]", stop, idx, [asset creationDate],
+                      [assetLocation coordinate].latitude, [assetLocation coordinate].longitude,
+                      [placemark name], [placemark country], [placemark administrativeArea], [placemark subAdministrativeArea], [placemark locality], [placemark subLocality], [placemark thoroughfare]);
+                 */
+                CNPostalAddress* postalAddress = [placemark postalAddress];
+                NSLog(@"stop %d, index %ld, creationDate: %@, location: (%f,%f)[%@][%@]", stop, idx, [asset creationDate],
+                      [assetLocation coordinate].latitude, [assetLocation coordinate].longitude,
+                      postalAddress, placemark);
+            }
+        }];
 
+    }];
 }
 
 @end

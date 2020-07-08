@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet NSDatePicker* dpEnd;
     IBOutlet NSTextField* txtDirectoryPath;
     IBOutlet NSTextField* txtSummary;
-    IBOutlet NSWindow* window;
 }
 
 - (IBAction) btnSelectDirectory: (id) sender;

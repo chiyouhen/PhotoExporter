@@ -15,16 +15,30 @@
 @end
 
 @implementation AppDelegate
+@synthesize tmp;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    [self setTmp: @"test"];
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
         if (status != PHAuthorizationStatusAuthorized) {
-            NSAlert* alert = [[NSAlert alloc] init];
-            [alert setAlertStyle: NSAlertStyleCritical];
-            [alert setMessageText: @"Please grant the permission of photo album access"];
-            [alert beginSheetModalForWindow: [self window]];
-            [alert runModal];
+            NSLog(@"Authorized status [%ld]", status);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSAlert* alert = [[NSAlert alloc] init];
+                [alert setAlertStyle: NSAlertStyleCritical];
+                [alert setMessageText: @"Please grant the permission of photo album access"];
+                
+                [alert beginSheetModalForWindow: [self window]
+                              completionHandler:^(NSModalResponse res){
+                    [[NSApplication sharedApplication] terminate: nil];
+                }];
+                
+                /*
+                [alert runModal];
+                [[NSApplication sharedApplication] terminate: nil];
+                 */
+            });
             
         }
     }];

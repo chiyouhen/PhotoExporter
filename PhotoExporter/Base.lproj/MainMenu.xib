@@ -684,7 +684,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="692" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="692" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -763,7 +763,6 @@
                 <outlet property="dpEnd" destination="bqf-e6-Rpx" id="dvn-96-wuC"/>
                 <outlet property="txtDirectoryPath" destination="3In-Uy-qJI" id="ZiR-j0-GdG"/>
                 <outlet property="txtSummary" destination="Pc5-OI-YOl" id="BG5-ef-Oen"/>
-                <outlet property="window" destination="QvC-M9-y7g" id="2ww-hb-HBs"/>
             </connections>
         </customObject>
     </objects>
