@@ -31,6 +31,7 @@ enum ImageRes {
 - (id) initWithPHAsset: (PHAsset*) asset;
 - (void) retrieve: (void(^)(void)) retrieveHandler;
 - (BOOL) retrieved;
+- (int) save: (NSString*) path;
 
 @end
 

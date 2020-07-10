@@ -140,4 +140,43 @@
     return NO;
 }
 
+- (int) save: (NSString*) path {
+    if (! [self retrieved]) {
+        return 1;
+    }
+    NSData* data = [[self image] TIFFRepresentation];
+    NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData: data];
+    NSDictionary* properties = @{
+        NSImageCompressionFactor: [NSNumber numberWithFloat: 1.0],
+    };
+    data = [imageRep representationUsingType: NSBitmapImageFileTypeJPEG
+                                  properties: properties];
+    NSFileManager* fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath: path]) {
+        BOOL isDir;
+        [fm fileExistsAtPath: path
+                 isDirectory: &isDir];
+        if (! isDir) {
+            NSLog(@"path %@ exits, but not a directory", path);
+            return 1;
+        }
+    } else {
+        NSError* error;
+        BOOL created = [fm createDirectoryAtPath: path
+                     withIntermediateDirectories:YES
+                                      attributes: nil
+                                           error: &error];
+        if (! created) {
+            NSLog(@"error occured while create directory %@, %@", path, error);
+            return 1;
+        }
+    }
+    NSArray* pathComponents = [NSArray arrayWithObjects: path, [NSString stringWithFormat: @"%@.jpg", [[self image] name]], nil];
+    NSString* filePath = [NSString pathWithComponents: pathComponents];
+    [data writeToFile: filePath
+           atomically: YES];
+    NSLog(@"attempt to write file to %@", filePath);
+    return 0;
+}
+
 @end

@@ -32,11 +32,6 @@
                               completionHandler:^(NSModalResponse res){
                     [[NSApplication sharedApplication] terminate: nil];
                 }];
-                
-                /*
-                [alert runModal];
-                [[NSApplication sharedApplication] terminate: nil];
-                 */
             });
             
         }
