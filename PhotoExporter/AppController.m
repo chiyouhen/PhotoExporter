@@ -11,6 +11,7 @@
 #import <Contacts/Contacts.h>
 #import "AppController.h"
 #import "AppDelegate.h"
+#import "Image.h"
 
 @implementation AppController
 
@@ -46,27 +47,14 @@
     [fetchOptions setPredicate: [NSPredicate predicateWithFormat: @"(creationDate >= %@) AND (creationDate <= %@)", [[self dpBegin] dateValue], [[self dpEnd] dateValue]]];
     PHFetchResult<PHAsset*>* fetchResult = [PHAsset fetchAssetsWithOptions: fetchOptions];
     NSLog(@"got %ld items", [fetchResult count]);
-
+    
     [fetchResult enumerateObjectsUsingBlock: ^(PHAsset* asset, NSUInteger idx, BOOL* stop) {
-        NSLog(@"idx %ld, creationDate: %@", idx, [asset creationDate]);
-        CLLocation* assetLocation = [asset location];
-        CLGeocoder* geocoder = [[CLGeocoder alloc] init];
-        [geocoder reverseGeocodeLocation: assetLocation
-                         preferredLocale: [NSLocale localeWithLocaleIdentifier: @"zh_CN"]
-                      completionHandler:^(NSArray<CLPlacemark*>* placemarks, NSError* error) {
-            NSLog(@"geocoder, idx %ld, error: %@", idx, error);
-            for (CLPlacemark* placemark in placemarks) {
-                /*
-                NSLog(@"stop %d, index %ld, creationDate: %@, location: (%f,%f)%@[%@-%@-%@-%@-%@-%@]", stop, idx, [asset creationDate],
-                      [assetLocation coordinate].latitude, [assetLocation coordinate].longitude,
-                      [placemark name], [placemark country], [placemark administrativeArea], [placemark subAdministrativeArea], [placemark locality], [placemark subLocality], [placemark thoroughfare]);
-                 */
-                CNPostalAddress* postalAddress = [placemark postalAddress];
-                NSLog(@"stop %d, index %ld, creationDate: %@, location: (%f,%f)[%@][%@]", stop, idx, [asset creationDate],
-                      [assetLocation coordinate].latitude, [assetLocation coordinate].longitude,
-                      postalAddress, placemark);
-            }
+        Image* image = [[Image alloc] initWithPHAsset: asset];
+        [image retrieve: ^{
+            NSLog(@"%@", image);
         }];
+
+        
 
     }];
 }

@@ -12,18 +12,31 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+enum ImageRes {
+    ImageResOK = 0,
+    ImageResBadType = 1,
+    ImageResGeoFailed = 2,
+    ImageResRetrieveImage = 3,
+};
+
 @interface Image : NSObject{
+    /*
     PHAsset* asset;
     NSImage* image;
-    CLPlacemark* placemark;
-}
+    NSArray<CLPlacemark*>* placemarks;
+    void(^retrieveHandler)(void);
+     */
+};
 
 @property PHAsset* asset;
 @property NSImage* image;
-@property CLPlacemark* placemark;
+@property NSArray<PHAssetResource*>* resources;
+@property NSArray<CLPlacemark*>* placemarks;
+@property void(^retrieveHandler)(void);
 
 - (id) initWithPHAsset: (PHAsset*) asset;
-- (id) initWithPHAssetAsync: (PHAsset*) asset dispatchGroup: (dispatch_group_t) group;
+- (void) retrieve: (void(^)(void)) retrieveHandler;
+- (BOOL) retrieved;
 
 @end
 
