@@ -11,27 +11,14 @@
 #import <Contacts/Contacts.h>
 #import "AppController.h"
 #import "AppDelegate.h"
-void handlePHAsset(PHAsset* asset, NSUInteger idx, BOOL* stop) {
-    NSLog(@"idx %ld, creationDate: %@", idx, [asset creationDate]);
-    CLLocation* assetLocation = [asset location];
-    CLGeocoder* geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation: assetLocation
-                  completionHandler:^(NSArray<CLPlacemark*>* placemarks, NSError* error) {
-        for (CLPlacemark* placemark in placemarks) {
-            NSLog(@"stop %d, index %ld, creationDate: %@, location: (%f,%f)%@[%@-%@-%@-%@-%@-%@]", stop, idx, [asset creationDate],
-                  [assetLocation coordinate].latitude, [assetLocation coordinate].longitude,
-                  [placemark name], [placemark country], [placemark administrativeArea], [placemark subAdministrativeArea], [placemark locality], [placemark subLocality], [placemark thoroughfare]);
-        }
-        *stop = NO;
-    }];
-}
+
 @implementation AppController
 
 - (void) awakeFromNib {
     [super awakeFromNib];
     NSDate* now = [NSDate date];
-    [dpBegin setDateValue: now];
-    [dpEnd setDateValue: now];
+    [[self dpBegin] setDateValue: now];
+    [[self dpEnd] setDateValue: now];
     NSLog(@"now %@", now);
 }
 - (IBAction) btnSelectDirectory: (id) sender {
@@ -46,18 +33,17 @@ void handlePHAsset(PHAsset* asset, NSUInteger idx, BOOL* stop) {
         NSLog(@"%@", directories);
         NSString* path = [directories[0] path];
         NSLog(@"%s", path);
-        [txtDirectoryPath setStringValue: path];
+        [[self txtDirectoryPath] setStringValue: path];
     }
 }
 
 - (IBAction) btnSubmit: (id) sender {
     AppDelegate* appDelegate = (AppDelegate*)[[NSApplication sharedApplication] delegate];
     NSLog(@"%@", appDelegate);
-    [appDelegate setTmp: @"test"];
     
-    [txtSummary setStringValue: [NSString stringWithFormat: @"from %@ to %@ under %@", [dpBegin dateValue], [dpEnd dateValue], [txtDirectoryPath stringValue]]];
+    [[self txtSummary] setStringValue: [NSString stringWithFormat: @"from %@ to %@ under %@", [[self dpBegin] dateValue], [[self dpEnd] dateValue], [[self txtDirectoryPath] stringValue]]];
     PHFetchOptions* fetchOptions = [[PHFetchOptions alloc] init];
-    [fetchOptions setPredicate: [NSPredicate predicateWithFormat: @"(creationDate >= %@) AND (creationDate <= %@)", [dpBegin dateValue], [dpEnd dateValue]]];
+    [fetchOptions setPredicate: [NSPredicate predicateWithFormat: @"(creationDate >= %@) AND (creationDate <= %@)", [[self dpBegin] dateValue], [[self dpEnd] dateValue]]];
     PHFetchResult<PHAsset*>* fetchResult = [PHAsset fetchAssetsWithOptions: fetchOptions];
     NSLog(@"got %ld items", [fetchResult count]);
 

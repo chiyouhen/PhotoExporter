@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		474AD7DA24B83F2500E3DB83 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 474AD7D924B83F2500E3DB83 /* Image.m */; };
 		47A9210924B4A88B00FCBC61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9210824B4A88B00FCBC61 /* AppDelegate.m */; };
 		47A9210B24B4A88C00FCBC61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47A9210A24B4A88C00FCBC61 /* Assets.xcassets */; };
 		47A9210E24B4A88C00FCBC61 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47A9210C24B4A88C00FCBC61 /* MainMenu.xib */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		474AD7D824B83F2500E3DB83 /* Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		474AD7D924B83F2500E3DB83 /* Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		47A9210424B4A88B00FCBC61 /* PhotoExporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoExporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47A9210724B4A88B00FCBC61 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		47A9210824B4A88B00FCBC61 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -109,6 +112,8 @@
 				47A9211224B4A88C00FCBC61 /* PhotoExporter.entitlements */,
 				47A9213424B4AAE400FCBC61 /* AppController.h */,
 				47A9213524B4AAE400FCBC61 /* AppController.m */,
+				474AD7D824B83F2500E3DB83 /* Image.h */,
+				474AD7D924B83F2500E3DB83 /* Image.m */,
 			);
 			path = PhotoExporter;
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47A9211124B4A88C00FCBC61 /* main.m in Sources */,
+				474AD7DA24B83F2500E3DB83 /* Image.m in Sources */,
 				47A9213624B4AAE400FCBC61 /* AppController.m in Sources */,
 				47A9210924B4A88B00FCBC61 /* AppDelegate.m in Sources */,
 			);

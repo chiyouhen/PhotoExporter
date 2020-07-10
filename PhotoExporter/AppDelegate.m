@@ -15,11 +15,10 @@
 @end
 
 @implementation AppDelegate
-@synthesize tmp;
+
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
-    [self setTmp: @"test"];
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
         if (status != PHAuthorizationStatusAuthorized) {
             NSLog(@"Authorized status [%ld]", status);

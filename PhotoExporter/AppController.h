@@ -11,13 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AppController : NSObject
-{
-    IBOutlet NSDatePicker* dpBegin;
-    IBOutlet NSDatePicker* dpEnd;
-    IBOutlet NSTextField* txtDirectoryPath;
-    IBOutlet NSTextField* txtSummary;
-}
+@interface AppController : NSObject 
+
+@property IBOutlet NSDatePicker* dpBegin;
+@property IBOutlet NSDatePicker* dpEnd;
+@property IBOutlet NSTextField* txtDirectoryPath;
+@property IBOutlet NSTextField* txtSummary;
 
 - (IBAction) btnSelectDirectory: (id) sender;
 - (IBAction) btnSubmit: (id) sender;
