@@ -19,20 +19,14 @@ enum ImageRes {
     ImageResRetrieveImage = 3,
 };
 
-@interface Image : NSObject{
-    /*
-    PHAsset* asset;
-    NSImage* image;
-    NSArray<CLPlacemark*>* placemarks;
-    void(^retrieveHandler)(void);
-     */
-};
+@interface Image : NSObject
 
 @property PHAsset* asset;
 @property NSImage* image;
-@property NSArray<PHAssetResource*>* resources;
-@property NSArray<CLPlacemark*>* placemarks;
+@property CLPlacemark* placemark;
 @property void(^retrieveHandler)(void);
+@property dispatch_semaphore_t parallel;
+@property NSString* categoryKey;
 
 - (id) initWithPHAsset: (PHAsset*) asset;
 - (void) retrieve: (void(^)(void)) retrieveHandler;

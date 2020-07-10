@@ -14,8 +14,7 @@
 
 @synthesize asset;
 @synthesize image;
-@synthesize resources;
-@synthesize placemarks;
+@synthesize placemark;
 @synthesize retrieveHandler;
 
 - (int) retrieveImage {
@@ -25,7 +24,7 @@
     if ([self image] != nil) {
         return 0;
     }
-    /*
+    
     PHImageManager* phImageManager = [PHImageManager defaultManager];
     CGSize imageSize;
     imageSize.height = [[self asset] pixelHeight];
@@ -36,38 +35,44 @@
     [imageRequestOptions setDeliveryMode: PHImageRequestOptionsDeliveryModeHighQualityFormat];
     [imageRequestOptions setNetworkAccessAllowed: YES];
     
+    dispatch_semaphore_wait([self parallel], DISPATCH_TIME_FOREVER);
     [phImageManager requestImageForAsset: asset
                               targetSize: imageSize
                              contentMode: PHImageContentModeDefault
                                  options: imageRequestOptions
                            resultHandler: ^(NSImage* result, NSDictionary* info){
+        
+        dispatch_semaphore_signal([self parallel]);
+
+        NSArray<PHAssetResource*>* phAssetResources = [PHAssetResource assetResourcesForAsset: [self asset]];
+        for (PHAssetResource* res in phAssetResources) {
+            if ([res type] == PHAssetResourceTypePhoto) {
+                [result setName: [[res originalFilename] stringByDeletingPathExtension]];
+                break;
+            }
+        }
         [self setImage: result];
         if ([self retrieved]) {
             [self retrieveHandler]();
         }
-        
     }];
-     */
-    NSArray<PHAssetResource*>* phAssetResources = [PHAssetResource assetResourcesForAsset: [self asset]];
-    [self setResources: phAssetResources];
-    for (PHAssetResource* res in phAssetResources) {
-        
-    }
-    
+
     return 0;
     
 }
 
 - (int) retrieveGeocode {
-    if ([self placemarks] != nil) {
+    if ([self placemark] != nil) {
         return 0;
     }
     CLLocation* assetLocation = [[self asset] location];
     CLGeocoder* geocoder = [[CLGeocoder alloc] init];
     
+    dispatch_semaphore_wait([self parallel], DISPATCH_TIME_FOREVER);
     [geocoder reverseGeocodeLocation: assetLocation
                    completionHandler: ^(NSArray<CLPlacemark*>* placemarks, NSError* error) {
-        [self setPlacemarks: placemarks];
+        dispatch_semaphore_signal([self parallel]);
+        [self setPlacemark: [placemarks objectAtIndex: 0]];
         if ([self retrieved]) {
             [self retrieveHandler]();
         }
@@ -79,6 +84,9 @@
 - (id) initWithPHAsset: (PHAsset*) asset {
     if (self = [super init]) {
         [self setAsset: asset];
+        if ([self parallel] == nil) {
+            [self setParallel: dispatch_semaphore_create(1)];
+        }
     }
     return self;
 }
@@ -91,13 +99,42 @@
 
 - (NSString*) description {
     return [NSString stringWithFormat: @"%@: [%@], %ldx%ld, %@",
-             [self resources], [[self asset] creationDate],
+             [[self image] name], [[self asset] creationDate],
              [[self asset] pixelWidth], [[self asset] pixelHeight],
-             [[self placemarks] objectAtIndex: 0]];
+             [self categoryKey]];
+}
+
+- (void) categoryKeyGen {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle: NSDateFormatterMediumStyle];
+    [dateFormatter setTimeStyle: NSDateFormatterNoStyle];
+    NSMutableString* address = [NSMutableString stringWithCapacity: 64];
+    CLPlacemark* placemark = [self placemark];
+    if ([placemark country] != nil) {
+        [address appendFormat: @"%@", [placemark country]];
+    }
+    if ([placemark administrativeArea] != nil) {
+        [address appendFormat: @" - %@", [placemark administrativeArea]];
+    }
+    if ([placemark locality] != nil) {
+        [address appendFormat: @" - %@", [placemark locality]];
+    }
+    if ([placemark subLocality] != nil) {
+        [address appendFormat: @" - %@", [placemark subLocality]];
+    }
+    if ([placemark thoroughfare] != nil) {
+        [address appendFormat: @" - %@", [placemark thoroughfare]];
+    }
+    NSString* key = [NSString stringWithFormat: @"%@, %@",
+                     [dateFormatter stringFromDate: [[self asset] creationDate]],
+                     address];
+    [self setCategoryKey: key];
+                     
 }
 
 - (BOOL) retrieved {
-    if ([self resources] != nil && [self placemarks] != nil) {
+    if ([self image] != nil && [self placemark] != nil) {
+        [self categoryKeyGen];
         return YES;
     }
     return NO;
