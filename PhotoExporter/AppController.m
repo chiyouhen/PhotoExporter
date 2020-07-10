@@ -60,6 +60,8 @@ void handlePHAsset(PHAsset* asset, NSUInteger idx, BOOL* stop) {
     [fetchOptions setPredicate: [NSPredicate predicateWithFormat: @"(creationDate >= %@) AND (creationDate <= %@)", [dpBegin dateValue], [dpEnd dateValue]]];
     PHFetchResult<PHAsset*>* fetchResult = [PHAsset fetchAssetsWithOptions: fetchOptions];
     NSLog(@"got %ld items", [fetchResult count]);
+    
+    PHImageManager* phImageManager = [PHImageManager defaultManager];
 
     [fetchResult enumerateObjectsUsingBlock: ^(PHAsset* asset, NSUInteger idx, BOOL* stop) {
         NSLog(@"idx %ld, creationDate: %@", idx, [asset creationDate]);
@@ -67,7 +69,7 @@ void handlePHAsset(PHAsset* asset, NSUInteger idx, BOOL* stop) {
         CLGeocoder* geocoder = [[CLGeocoder alloc] init];
         [geocoder reverseGeocodeLocation: assetLocation
                          preferredLocale: [NSLocale localeWithLocaleIdentifier: @"zh_CN"]
-                      completionHandler:^(NSArray<CLPlacemark*>* placemarks, NSError* error) {
+                       completionHandler: ^(NSArray<CLPlacemark*>* placemarks, NSError* error) {
             NSLog(@"geocoder, idx %ld, error: %@", idx, error);
             for (CLPlacemark* placemark in placemarks) {
                 /*
@@ -81,6 +83,32 @@ void handlePHAsset(PHAsset* asset, NSUInteger idx, BOOL* stop) {
                       postalAddress, placemark);
             }
         }];
+        
+        if ([asset mediaType] != PHAssetMediaTypeImage) {
+            NSLog(@"idx: %ld, not image", idx);
+            return;
+        }
+        CGSize imageSize;
+        imageSize.height = [asset pixelHeight];
+        imageSize.width = [asset pixelWidth];
+        PHImageRequestOptions* imageRequestOptions = [[PHImageRequestOptions alloc] init];
+        [imageRequestOptions setSynchronous: YES];
+        [imageRequestOptions setVersion: PHImageRequestOptionsVersionCurrent];
+        [imageRequestOptions setDeliveryMode: PHImageRequestOptionsDeliveryModeHighQualityFormat];
+        [imageRequestOptions setNetworkAccessAllowed: YES];
+        
+        [phImageManager requestImageForAsset: asset
+                                  targetSize: imageSize
+                                 contentMode: PHImageContentModeDefault
+                                     options: imageRequestOptions
+                               resultHandler: ^(NSImage* result, NSDictionary* info){
+            NSData* imageData = [result TIFFRepresentation];
+            NSBitmapImageRep* imageRep = [NSBitmapImageRep imageRepWithData: imageData];
+            NSColorSpace* colorSpace = [imageRep colorSpace];
+            NSLog(@"idx: %ld, colorSpace: %@", idx, colorSpace);
+            
+        }];
+        
 
     }];
 }
