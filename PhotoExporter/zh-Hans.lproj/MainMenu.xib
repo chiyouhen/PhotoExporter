@@ -105,6 +105,15 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pc5-OI-YOl">
+                        <rect key="frame" x="18" y="46" width="235" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Rot-qs-fgl">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ggd-fJ-Zvp">
                         <rect key="frame" x="22" y="282" width="71" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -132,6 +141,7 @@
                 <outlet property="dpBegin" destination="evy-EP-E8j" id="kL2-72-IOq"/>
                 <outlet property="dpEnd" destination="bqf-e6-Rpx" id="dvn-96-wuC"/>
                 <outlet property="txtDirectoryPath" destination="3In-Uy-qJI" id="ZiR-j0-GdG"/>
+                <outlet property="txtSummary" destination="Pc5-OI-YOl" id="BG5-ef-Oen"/>
             </connections>
         </customObject>
     </objects>

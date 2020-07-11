@@ -26,14 +26,10 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSAlert* alert = [[NSAlert alloc] init];
                 [alert setAlertStyle: NSAlertStyleCritical];
-                [alert setMessageText: @"Please grant the permission of photo album access"];
-                
-                [alert beginSheetModalForWindow: [self window]
-                              completionHandler:^(NSModalResponse res){
-                    [[NSApplication sharedApplication] terminate: nil];
-                }];
+                [alert setMessageText: NSLocalizedString(@"Please grant the permission of photo album access", @"")];
+                [alert runModal];
+                [[NSApplication sharedApplication] terminate: nil];
             });
-            
         }
     }];
     
@@ -42,6 +38,15 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+- (IBAction) about: (id) sender {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSAlert* alert = [[NSAlert alloc] init];
+        [alert setAlertStyle: NSAlertStyleInformational];
+        [alert setMessageText: @"PhotoExporter by chiyouhen"];
+        [alert runModal];
+    });
 }
 
 

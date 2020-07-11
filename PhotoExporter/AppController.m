@@ -78,6 +78,9 @@
             if ([self isFinished]) {
                 [self finished];
             }
+        }
+           errorHandler: ^{
+            NSLog(@"An error occured while retrieve %@", [image name]);
         }];
     }];
 }
@@ -91,7 +94,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         NSAlert* alert = [[NSAlert alloc] init];
         [alert setAlertStyle: NSAlertStyleInformational];
-        [alert setMessageText: @"Finished"];
+        [alert setMessageText: NSLocalizedString(@"Finished", @"")];
         
         [alert runModal];
     });

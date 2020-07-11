@@ -15,6 +15,7 @@
 		47A9211C24B4A88C00FCBC61 /* PhotoExporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9211B24B4A88C00FCBC61 /* PhotoExporterTests.m */; };
 		47A9212724B4A88C00FCBC61 /* PhotoExporterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9212624B4A88C00FCBC61 /* PhotoExporterUITests.m */; };
 		47A9213624B4AAE400FCBC61 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9213524B4AAE400FCBC61 /* AppController.m */; };
+		47E2609C24B9B36C00D24821 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E2609E24B9B36C00D24821 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +38,7 @@
 /* Begin PBXFileReference section */
 		474AD7D824B83F2500E3DB83 /* Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		474AD7D924B83F2500E3DB83 /* Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
-		477850FB24B8CD2A004CFAC0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
+		477850FB24B8CD2A004CFAC0 /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
 		47A9210424B4A88B00FCBC61 /* PhotoExporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoExporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47A9210724B4A88B00FCBC61 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		47A9210824B4A88B00FCBC61 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -54,6 +55,7 @@
 		47A9212824B4A88C00FCBC61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47A9213424B4AAE400FCBC61 /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		47A9213524B4AAE400FCBC61 /* AppController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		47E2609D24B9B36C00D24821 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				47A9213524B4AAE400FCBC61 /* AppController.m */,
 				474AD7D824B83F2500E3DB83 /* Image.h */,
 				474AD7D924B83F2500E3DB83 /* Image.m */,
+				47E2609E24B9B36C00D24821 /* Localizable.strings */,
 			);
 			path = PhotoExporter;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47A9210B24B4A88C00FCBC61 /* Assets.xcassets in Resources */,
+				47E2609C24B9B36C00D24821 /* Localizable.strings in Resources */,
 				47A9210E24B4A88C00FCBC61 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,6 +317,14 @@
 				477850FB24B8CD2A004CFAC0 /* zh-Hans */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		47E2609E24B9B36C00D24821 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47E2609D24B9B36C00D24821 /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

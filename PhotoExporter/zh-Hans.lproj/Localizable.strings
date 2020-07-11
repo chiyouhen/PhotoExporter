@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  PhotoExporter
+
+  Created by henkzhang(张珩) on 2020/7/11.
+  Copyright © 2020 chiyouhen. All rights reserved.
+*/
+
+"Finished" = "完成";
+"Please grant the permission of photo album access" = "请授予相册的访问权限";
+"Export photos with formatted title" = "按照格式导出相册";
+
