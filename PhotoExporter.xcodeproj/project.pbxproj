@@ -15,6 +15,14 @@
 		47A9211C24B4A88C00FCBC61 /* PhotoExporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9211B24B4A88C00FCBC61 /* PhotoExporterTests.m */; };
 		47A9212724B4A88C00FCBC61 /* PhotoExporterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9212624B4A88C00FCBC61 /* PhotoExporterUITests.m */; };
 		47A9213624B4AAE400FCBC61 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9213524B4AAE400FCBC61 /* AppController.m */; };
+		47CB29AC24BC806C00D63EED /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29AA24BC806C00D63EED /* BaiduMapAPI_Search.framework */; };
+		47CB29AD24BC806C00D63EED /* BaiduMapAPI_Search.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29AA24BC806C00D63EED /* BaiduMapAPI_Search.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		47CB29AE24BC806C00D63EED /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29AB24BC806C00D63EED /* BaiduMapAPI_Base.framework */; };
+		47CB29AF24BC806C00D63EED /* BaiduMapAPI_Base.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29AB24BC806C00D63EED /* BaiduMapAPI_Base.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		47CB29B324BC819300D63EED /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29B224BC817D00D63EED /* libcrypto.a */; };
+		47CB29B424BC819D00D63EED /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29B124BC817D00D63EED /* libssl.a */; };
+		47CB29B724BC81EC00D63EED /* GeoCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 47CB29B624BC81EC00D63EED /* GeoCoder.m */; };
+		47CB29BA24BC825C00D63EED /* BMKCloudSearchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47CB29B924BC825C00D63EED /* BMKCloudSearchDelegate.m */; };
 		47E2609C24B9B36C00D24821 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E2609E24B9B36C00D24821 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +42,21 @@
 			remoteInfo = PhotoExporter;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		47CB29B024BC806C00D63EED /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				47CB29AD24BC806C00D63EED /* BaiduMapAPI_Search.framework in Embed Frameworks */,
+				47CB29AF24BC806C00D63EED /* BaiduMapAPI_Base.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		474AD7D824B83F2500E3DB83 /* Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -55,6 +78,14 @@
 		47A9212824B4A88C00FCBC61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47A9213424B4AAE400FCBC61 /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		47A9213524B4AAE400FCBC61 /* AppController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		47CB29AA24BC806C00D63EED /* BaiduMapAPI_Search.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Search.framework; path = PhotoExporter/Frameworks/BaiduMapAPI_Search.framework; sourceTree = "<group>"; };
+		47CB29AB24BC806C00D63EED /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = PhotoExporter/Frameworks/BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
+		47CB29B124BC817D00D63EED /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = PhotoExporter/Frameworks/thirdlibs/libssl.a; sourceTree = "<group>"; };
+		47CB29B224BC817D00D63EED /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = PhotoExporter/Frameworks/thirdlibs/libcrypto.a; sourceTree = "<group>"; };
+		47CB29B524BC81EC00D63EED /* GeoCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeoCoder.h; sourceTree = "<group>"; };
+		47CB29B624BC81EC00D63EED /* GeoCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeoCoder.m; sourceTree = "<group>"; };
+		47CB29B824BC825C00D63EED /* BMKCloudSearchDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMKCloudSearchDelegate.h; sourceTree = "<group>"; };
+		47CB29B924BC825C00D63EED /* BMKCloudSearchDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMKCloudSearchDelegate.m; sourceTree = "<group>"; };
 		47E2609D24B9B36C00D24821 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +94,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47CB29B424BC819D00D63EED /* libssl.a in Frameworks */,
+				47CB29AC24BC806C00D63EED /* BaiduMapAPI_Search.framework in Frameworks */,
+				47CB29AE24BC806C00D63EED /* BaiduMapAPI_Base.framework in Frameworks */,
+				47CB29B324BC819300D63EED /* libcrypto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +125,7 @@
 				47A9211A24B4A88C00FCBC61 /* PhotoExporterTests */,
 				47A9212524B4A88C00FCBC61 /* PhotoExporterUITests */,
 				47A9210524B4A88B00FCBC61 /* Products */,
+				47CB29A924BC806C00D63EED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,6 +154,10 @@
 				474AD7D824B83F2500E3DB83 /* Image.h */,
 				474AD7D924B83F2500E3DB83 /* Image.m */,
 				47E2609E24B9B36C00D24821 /* Localizable.strings */,
+				47CB29B524BC81EC00D63EED /* GeoCoder.h */,
+				47CB29B624BC81EC00D63EED /* GeoCoder.m */,
+				47CB29B824BC825C00D63EED /* BMKCloudSearchDelegate.h */,
+				47CB29B924BC825C00D63EED /* BMKCloudSearchDelegate.m */,
 			);
 			path = PhotoExporter;
 			sourceTree = "<group>";
@@ -140,6 +180,17 @@
 			path = PhotoExporterUITests;
 			sourceTree = "<group>";
 		};
+		47CB29A924BC806C00D63EED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				47CB29B224BC817D00D63EED /* libcrypto.a */,
+				47CB29B124BC817D00D63EED /* libssl.a */,
+				47CB29AB24BC806C00D63EED /* BaiduMapAPI_Base.framework */,
+				47CB29AA24BC806C00D63EED /* BaiduMapAPI_Search.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,6 +201,7 @@
 				47A9210024B4A88B00FCBC61 /* Sources */,
 				47A9210124B4A88B00FCBC61 /* Frameworks */,
 				47A9210224B4A88B00FCBC61 /* Resources */,
+				47CB29B024BC806C00D63EED /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -271,10 +323,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47CB29B724BC81EC00D63EED /* GeoCoder.m in Sources */,
 				47A9211124B4A88C00FCBC61 /* main.m in Sources */,
 				474AD7DA24B83F2500E3DB83 /* Image.m in Sources */,
 				47A9213624B4AAE400FCBC61 /* AppController.m in Sources */,
 				47A9210924B4A88B00FCBC61 /* AppDelegate.m in Sources */,
+				47CB29BA24BC825C00D63EED /* BMKCloudSearchDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,10 +502,18 @@
 				CODE_SIGN_ENTITLEMENTS = PhotoExporter/PhotoExporter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PhotoExporter/Frameworks",
+				);
 				INFOPLIST_FILE = PhotoExporter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PhotoExporter/Frameworks/thirdlibs",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = chiyouhen.PhotoExporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -465,10 +527,18 @@
 				CODE_SIGN_ENTITLEMENTS = PhotoExporter/PhotoExporter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PhotoExporter/Frameworks",
+				);
 				INFOPLIST_FILE = PhotoExporter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PhotoExporter/Frameworks/thirdlibs",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = chiyouhen.PhotoExporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
