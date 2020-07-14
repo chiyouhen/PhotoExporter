@@ -19,36 +19,36 @@
         [self setCurrentCount: [self currentCount] + 1];
     }
 }
+- (void) appendExportedURL: (NSURL*) url {
+    @synchronized (self) {
+        if ([[self exportedURLs] containsObject: url]) {
+            return;
+        }
+        [[self exportedURLs] addObject: url];
+    }
+}
 - (void) awakeFromNib {
     [super awakeFromNib];
     NSDate* now = [NSDate date];
     [[self dpBegin] setDateValue: now];
     [[self dpEnd] setDateValue: now];
-    [[self txtDirectoryPath] setStringValue: @""];
     [[self txtProgress] setStringValue: @""];
     [[self progressBar] setDoubleValue: 0.0];
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSURL* downloadsURL = [fm URLForDirectory:NSDownloadsDirectory
+                                     inDomain:NSUserDomainMask
+                            appropriateForURL:nil
+                                       create:YES error:nil];
+    [self setDirectoryURL: downloadsURL];
+    [self setExportedURLs: [[NSMutableArray alloc] init]];
     NSLog(@"now %@", now);
-}
-- (IBAction) btnSelectDirectory: (id) sender {
-    NSOpenPanel* dirDlg = [NSOpenPanel openPanel];
-    [dirDlg setCanChooseFiles: NO];
-    [dirDlg setCanChooseDirectories: YES];
-    [dirDlg setAllowsMultipleSelection: NO];
-
-    if ([dirDlg runModal] == NSModalResponseOK)
-    {
-        NSArray* directories = [dirDlg URLs];
-        NSLog(@"%@", directories);
-        NSString* path = [directories[0] path];
-        NSLog(@"%@", path);
-        [[self txtDirectoryPath] setStringValue: path];
-    }
 }
 
 - (IBAction) btnSubmit: (id) sender {
+    [[self exportedURLs] removeAllObjects];
     NSFileManager* fm = [NSFileManager defaultManager];
     BOOL isDir;
-    NSString* dirPath = [[self txtDirectoryPath] stringValue];
+    NSString* dirPath = [[self directoryURL] path];
     if (! ([fm fileExistsAtPath: dirPath isDirectory: &isDir] && isDir)) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSAlert* alert = [[NSAlert alloc] init];
@@ -60,7 +60,6 @@
         return;
     }
     
-    [[self txtSummary] setStringValue: [NSString stringWithFormat: @"from %@ to %@ under %@", [[self dpBegin] dateValue], [[self dpEnd] dateValue], [[self txtDirectoryPath] stringValue]]];
     PHFetchOptions* fetchOptions = [[PHFetchOptions alloc] init];
     [fetchOptions setPredicate: [NSPredicate predicateWithFormat: @"(creationDate >= %@) AND (creationDate <= %@)", [[self dpBegin] dateValue], [[self dpEnd] dateValue]]];
     PHFetchResult<PHAsset*>* fetchResult = [PHAsset fetchAssetsWithOptions: fetchOptions];
@@ -81,6 +80,8 @@
             [self incCurrentCount];
             [self setCurrentImage: image];
             [self updateProgress];
+            NSURL* currentURL = [[self directoryURL] URLByAppendingPathComponent: [image categoryKey]];
+            [self appendExportedURL: currentURL];
             if ([self isFinished]) {
                 [self finished];
             }
@@ -118,7 +119,10 @@
         [alert setMessageText: NSLocalizedString(@"Finished", @"")];
         
         [alert runModal];
+        NSLog(@"%@", [self exportedURLs]);
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs: [self exportedURLs]];
     });
+
 }
 
 @end
