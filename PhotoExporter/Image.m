@@ -8,6 +8,8 @@
 
 #import <Photos/Photos.h>
 #import <AppKit/AppKit.h>
+#import <Contacts/Contacts.h>
+#import "BDGeoCoder.h"
 #import "Image.h"
 
 @implementation Image
@@ -15,6 +17,7 @@
 @synthesize asset;
 @synthesize image;
 @synthesize placemark;
+@synthesize postalAddress;
 @synthesize retrievedHandler;
 @synthesize retrieveErrorHandler;
 @synthesize name;
@@ -83,7 +86,7 @@
 }
 
 - (int) retrieveGeocode {
-    if ([self placemark] != nil) {
+    if ([self postalAddress] != nil) {
         dispatch_semaphore_signal([self parallel]);
         [self geocodeRetrieved];
         return 0;
@@ -91,15 +94,18 @@
     CLLocation* assetLocation = [[self asset] location];
     if (assetLocation == nil) {
         dispatch_semaphore_signal([self parallel]);
-        [self setPlacemark: nil];
+        [self setPostalAddress: nil];
         [self geocodeRetrieved];
         return 0;
     }
+    /*
     CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+     */
+    BDGeoCoder* geocoder = [[BDGeoCoder alloc] init];
     
     dispatch_semaphore_wait([self parallel], DISPATCH_TIME_FOREVER);
     [geocoder reverseGeocodeLocation: assetLocation
-                   completionHandler: ^(NSArray<CLPlacemark*>* placemarks, NSError* error) {
+                   completionHandler: ^(CNPostalAddress* postalAddress, NSError* error) {
         dispatch_semaphore_signal([self parallel]);
         
         if (error != nil) {
@@ -109,9 +115,10 @@
             return;
         }
         
-        [self setPlacemark: [placemarks objectAtIndex: 0]];
+        [self setPostalAddress: postalAddress];
         [self geocodeRetrieved];
     }];
+     
     return 0;
 }
 
@@ -156,22 +163,23 @@
     [dateFormatter setDateStyle: NSDateFormatterMediumStyle];
     [dateFormatter setTimeStyle: NSDateFormatterNoStyle];
     NSMutableString* address = [NSMutableString stringWithCapacity: 64];
-    CLPlacemark* placemark = [self placemark];
-    if (placemark != nil) {
-        if ([placemark country] != nil) {
-            [address appendFormat: @"%@", [placemark country]];
+    CNPostalAddress* postalAddress = [self postalAddress];
+    if (postalAddress != nil) {
+        NSLog(@"postalAddress: %@", postalAddress);
+        if ([postalAddress country] != nil) {
+            [address appendFormat: @"%@", [postalAddress country]];
         }
-        if ([placemark administrativeArea] != nil) {
-            [address appendFormat: @" - %@", [placemark administrativeArea]];
+        if ([postalAddress state] != nil) {
+            [address appendFormat: @" - %@", [postalAddress state]];
         }
-        if ([placemark locality] != nil) {
-            [address appendFormat: @" - %@", [placemark locality]];
+        if ([postalAddress city] != nil) {
+            [address appendFormat: @" - %@", [postalAddress city]];
         }
-        if ([placemark subLocality] != nil) {
-            [address appendFormat: @" - %@", [placemark subLocality]];
+        if ([postalAddress subLocality] != nil) {
+            [address appendFormat: @" - %@", [postalAddress subLocality]];
         }
-        if ([placemark thoroughfare] != nil) {
-            [address appendFormat: @" - %@", [placemark thoroughfare]];
+        if ([postalAddress street] != nil) {
+            [address appendFormat: @" - %@", [postalAddress street]];
         }
     } else {
         [address appendFormat: @"Unknown"];

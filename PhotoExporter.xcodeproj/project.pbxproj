@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4704CDA624BD561F00D2ACEE /* BDGeoCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4704CDA524BD561F00D2ACEE /* BDGeoCoder.m */; };
 		474AD7DA24B83F2500E3DB83 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 474AD7D924B83F2500E3DB83 /* Image.m */; };
 		47A9210924B4A88B00FCBC61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9210824B4A88B00FCBC61 /* AppDelegate.m */; };
 		47A9210B24B4A88C00FCBC61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47A9210A24B4A88C00FCBC61 /* Assets.xcassets */; };
@@ -15,14 +16,7 @@
 		47A9211C24B4A88C00FCBC61 /* PhotoExporterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9211B24B4A88C00FCBC61 /* PhotoExporterTests.m */; };
 		47A9212724B4A88C00FCBC61 /* PhotoExporterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9212624B4A88C00FCBC61 /* PhotoExporterUITests.m */; };
 		47A9213624B4AAE400FCBC61 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47A9213524B4AAE400FCBC61 /* AppController.m */; };
-		47CB29AC24BC806C00D63EED /* BaiduMapAPI_Search.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29AA24BC806C00D63EED /* BaiduMapAPI_Search.framework */; };
-		47CB29AD24BC806C00D63EED /* BaiduMapAPI_Search.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29AA24BC806C00D63EED /* BaiduMapAPI_Search.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		47CB29AE24BC806C00D63EED /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29AB24BC806C00D63EED /* BaiduMapAPI_Base.framework */; };
-		47CB29AF24BC806C00D63EED /* BaiduMapAPI_Base.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29AB24BC806C00D63EED /* BaiduMapAPI_Base.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		47CB29B324BC819300D63EED /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29B224BC817D00D63EED /* libcrypto.a */; };
-		47CB29B424BC819D00D63EED /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47CB29B124BC817D00D63EED /* libssl.a */; };
 		47CB29B724BC81EC00D63EED /* GeoCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 47CB29B624BC81EC00D63EED /* GeoCoder.m */; };
-		47CB29BA24BC825C00D63EED /* BMKCloudSearchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47CB29B924BC825C00D63EED /* BMKCloudSearchDelegate.m */; };
 		47E2609C24B9B36C00D24821 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47E2609E24B9B36C00D24821 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -43,22 +37,10 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		47CB29B024BC806C00D63EED /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				47CB29AD24BC806C00D63EED /* BaiduMapAPI_Search.framework in Embed Frameworks */,
-				47CB29AF24BC806C00D63EED /* BaiduMapAPI_Base.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		4704CDA424BD561F00D2ACEE /* BDGeoCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDGeoCoder.h; sourceTree = "<group>"; };
+		4704CDA524BD561F00D2ACEE /* BDGeoCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDGeoCoder.m; sourceTree = "<group>"; };
+		4704CDA724BD566300D2ACEE /* Secret.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Secret.h; sourceTree = "<group>"; };
 		474AD7D824B83F2500E3DB83 /* Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		474AD7D924B83F2500E3DB83 /* Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		477850FB24B8CD2A004CFAC0 /* zh-Hans */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
@@ -84,8 +66,6 @@
 		47CB29B224BC817D00D63EED /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = PhotoExporter/Frameworks/thirdlibs/libcrypto.a; sourceTree = "<group>"; };
 		47CB29B524BC81EC00D63EED /* GeoCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeoCoder.h; sourceTree = "<group>"; };
 		47CB29B624BC81EC00D63EED /* GeoCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeoCoder.m; sourceTree = "<group>"; };
-		47CB29B824BC825C00D63EED /* BMKCloudSearchDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMKCloudSearchDelegate.h; sourceTree = "<group>"; };
-		47CB29B924BC825C00D63EED /* BMKCloudSearchDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMKCloudSearchDelegate.m; sourceTree = "<group>"; };
 		47E2609D24B9B36C00D24821 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,10 +74,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47CB29B424BC819D00D63EED /* libssl.a in Frameworks */,
-				47CB29AC24BC806C00D63EED /* BaiduMapAPI_Search.framework in Frameworks */,
-				47CB29AE24BC806C00D63EED /* BaiduMapAPI_Base.framework in Frameworks */,
-				47CB29B324BC819300D63EED /* libcrypto.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,8 +132,9 @@
 				47E2609E24B9B36C00D24821 /* Localizable.strings */,
 				47CB29B524BC81EC00D63EED /* GeoCoder.h */,
 				47CB29B624BC81EC00D63EED /* GeoCoder.m */,
-				47CB29B824BC825C00D63EED /* BMKCloudSearchDelegate.h */,
-				47CB29B924BC825C00D63EED /* BMKCloudSearchDelegate.m */,
+				4704CDA424BD561F00D2ACEE /* BDGeoCoder.h */,
+				4704CDA524BD561F00D2ACEE /* BDGeoCoder.m */,
+				4704CDA724BD566300D2ACEE /* Secret.h */,
 			);
 			path = PhotoExporter;
 			sourceTree = "<group>";
@@ -201,7 +178,6 @@
 				47A9210024B4A88B00FCBC61 /* Sources */,
 				47A9210124B4A88B00FCBC61 /* Frameworks */,
 				47A9210224B4A88B00FCBC61 /* Resources */,
-				47CB29B024BC806C00D63EED /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -328,7 +304,7 @@
 				474AD7DA24B83F2500E3DB83 /* Image.m in Sources */,
 				47A9213624B4AAE400FCBC61 /* AppController.m in Sources */,
 				47A9210924B4A88B00FCBC61 /* AppDelegate.m in Sources */,
-				47CB29BA24BC825C00D63EED /* BMKCloudSearchDelegate.m in Sources */,
+				4704CDA624BD561F00D2ACEE /* BDGeoCoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

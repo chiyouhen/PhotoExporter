@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Contacts/Contacts.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property PHAsset* asset;
 @property (nullable) NSImage* image;
 @property (nullable) CLPlacemark* placemark;
+@property (nullable) CNPostalAddress* postalAddress;
 @property void(^retrievedHandler)(void);
 @property void(^retrieveErrorHandler)(void);
 @property (nonnull) dispatch_semaphore_t parallel;

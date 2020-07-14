@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BaiduMapAPI_Base/BMKBaseComponent.h>
-#import <BaiduMapAPI_Cloud/BMKCloudSearchComponent.h>
+
 
 NS_ASSUME_NONNULL_BEGIN
 
