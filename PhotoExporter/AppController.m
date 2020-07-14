@@ -25,6 +25,8 @@
     [[self dpBegin] setDateValue: now];
     [[self dpEnd] setDateValue: now];
     [[self txtDirectoryPath] setStringValue: @""];
+    [[self txtProgress] setStringValue: @""];
+    [[self progressBar] setDoubleValue: 0.0];
     NSLog(@"now %@", now);
 }
 - (IBAction) btnSelectDirectory: (id) sender {
@@ -65,6 +67,8 @@
     NSLog(@"got %ld items", [fetchResult count]);
     [self setTotalCount: [fetchResult count]];
     [self setCurrentCount: 0];
+    [self setCurrentImage: nil];
+    [self updateProgress];
     
     [fetchResult enumerateObjectsUsingBlock: ^(PHAsset* asset, NSUInteger idx, BOOL* stop) {
         Image* image = [[Image alloc] initWithPHAsset: asset];
@@ -75,6 +79,8 @@
             NSString* path = [NSString pathWithComponents: pathComponents];
             [image save: path];
             [self incCurrentCount];
+            [self setCurrentImage: image];
+            [self updateProgress];
             if ([self isFinished]) {
                 [self finished];
             }
@@ -83,6 +89,21 @@
             NSLog(@"An error occured while retrieve %@", [image name]);
         }];
     }];
+}
+
+- (void) updateProgress {
+    Image* currentImage = [self currentImage];
+    NSString* progressText;
+    if (currentImage == nil) {
+        progressText = @"";
+    } else {
+        progressText = [NSString stringWithFormat: @"%d/%d %@/%@", [self currentCount], [self totalCount], [currentImage categoryKey], [currentImage name]];
+    }
+    NSLog(@"progress text: %@", progressText);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self txtProgress] setStringValue: progressText];
+        [[self progressBar] setDoubleValue: [self currentCount] * 100.0 / [self totalCount]];
+    });
 }
 
 - (BOOL) isFinished {

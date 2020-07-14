@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
+#import "Image.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property IBOutlet NSTextField* txtSummary;
 @property (atomic) NSUInteger currentCount;
 @property (atomic) NSUInteger totalCount;
+@property IBOutlet NSProgressIndicator* progressBar;
+@property IBOutlet NSTextField* txtProgress;
+@property (nullable) Image* currentImage;
 
 - (IBAction) btnSelectDirectory: (id) sender;
 - (IBAction) btnSubmit: (id) sender;

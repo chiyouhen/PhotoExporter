@@ -60,10 +60,6 @@
 		47A9212824B4A88C00FCBC61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47A9213424B4AAE400FCBC61 /* AppController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		47A9213524B4AAE400FCBC61 /* AppController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
-		47CB29AA24BC806C00D63EED /* BaiduMapAPI_Search.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Search.framework; path = PhotoExporter/Frameworks/BaiduMapAPI_Search.framework; sourceTree = "<group>"; };
-		47CB29AB24BC806C00D63EED /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI_Base.framework; path = PhotoExporter/Frameworks/BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
-		47CB29B124BC817D00D63EED /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = PhotoExporter/Frameworks/thirdlibs/libssl.a; sourceTree = "<group>"; };
-		47CB29B224BC817D00D63EED /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = PhotoExporter/Frameworks/thirdlibs/libcrypto.a; sourceTree = "<group>"; };
 		47CB29B524BC81EC00D63EED /* GeoCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeoCoder.h; sourceTree = "<group>"; };
 		47CB29B624BC81EC00D63EED /* GeoCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeoCoder.m; sourceTree = "<group>"; };
 		47E2609D24B9B36C00D24821 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -101,7 +97,6 @@
 				47A9211A24B4A88C00FCBC61 /* PhotoExporterTests */,
 				47A9212524B4A88C00FCBC61 /* PhotoExporterUITests */,
 				47A9210524B4A88B00FCBC61 /* Products */,
-				47CB29A924BC806C00D63EED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,17 +150,6 @@
 				47A9212824B4A88C00FCBC61 /* Info.plist */,
 			);
 			path = PhotoExporterUITests;
-			sourceTree = "<group>";
-		};
-		47CB29A924BC806C00D63EED /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				47CB29B224BC817D00D63EED /* libcrypto.a */,
-				47CB29B124BC817D00D63EED /* libssl.a */,
-				47CB29AB24BC806C00D63EED /* BaiduMapAPI_Base.framework */,
-				47CB29AA24BC806C00D63EED /* BaiduMapAPI_Search.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
