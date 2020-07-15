@@ -17,15 +17,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property IBOutlet NSDatePicker* dpBegin;
 @property IBOutlet NSDatePicker* dpEnd;
-@property (atomic) NSUInteger currentCount;
-@property (atomic) NSUInteger totalCount;
 @property IBOutlet NSProgressIndicator* progressBar;
 @property IBOutlet NSTextField* txtProgress;
-@property (nullable) Image* currentImage;
-@property NSURL* directoryURL;
+@property IBOutlet NSButton* btnSubmit;
+
+@property (atomic) NSUInteger currentCount;
+@property (atomic) NSUInteger totalCount;
 @property (atomic) NSMutableArray<NSURL*>* exportedURLs;
+@property (nullable) NSString* currentImageName;
+@property NSURL* directoryURL;
 
 - (IBAction) btnSubmit: (id) sender;
+
 - (BOOL) isFinished;
 - (void) finished;
 

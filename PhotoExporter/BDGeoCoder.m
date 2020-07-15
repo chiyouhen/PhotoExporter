@@ -20,7 +20,8 @@
     NSURL* url = [NSURL URLWithString:
                   [NSString stringWithFormat: @"https://api.map.baidu.com/reverse_geocoding/v3/?ak=%@&output=json&coordtype=wgs84ll&location=%f,%f", BD_MAP_AK, coordinate.latitude, coordinate.longitude]];
     NSMutableURLRequest* r = [NSMutableURLRequest requestWithURL: url];
-    [r setValue: BD_MAP_REFERER_HOST forHTTPHeaderField: @"Referer"];
+    NSString* referer = [BD_MAP_REFERER_HOST copy];
+    [r setValue: referer forHTTPHeaderField: @"Referer"];
     [r setTimeoutInterval: 1.0];
     
     NSURLSession* s = [NSURLSession sharedSession];
@@ -34,7 +35,7 @@
         }
         NSError* e;
         id obj = [NSJSONSerialization JSONObjectWithData: data
-                                                 options: nil
+                                                 options: 0
                                                    error: &e];
         if (e != nil) {
             NSLog(@"JSONObjectWithData error: %@", e);

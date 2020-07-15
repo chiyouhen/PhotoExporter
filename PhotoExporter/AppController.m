@@ -14,6 +14,11 @@
 #import "Image.h"
 
 @implementation AppController
+@synthesize dpBegin;
+@synthesize dpEnd;
+@synthesize btnSubmit;
+@synthesize progressBar;
+
 - (void) incCurrentCount {
     @synchronized (self) {
         [self setCurrentCount: [self currentCount] + 1];
@@ -45,6 +50,7 @@
 }
 
 - (IBAction) btnSubmit: (id) sender {
+    [self disableControls];
     [[self exportedURLs] removeAllObjects];
     NSFileManager* fm = [NSFileManager defaultManager];
     BOOL isDir;
@@ -57,6 +63,7 @@
             
             [alert runModal];
         });
+        [self enableControls];
         return;
     }
     
@@ -66,9 +73,40 @@
     NSLog(@"got %ld items", [fetchResult count]);
     [self setTotalCount: [fetchResult count]];
     [self setCurrentCount: 0];
-    [self setCurrentImage: nil];
+    [self setCurrentImageNameWithImage: nil];
     [self updateProgress];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        dispatch_semaphore_t parallel = dispatch_semaphore_create(1);
+        for (PHAsset* asset in fetchResult) {
+            dispatch_semaphore_wait(parallel, DISPATCH_TIME_FOREVER);
+            Image* image = [[Image alloc] initWithPHAsset: asset];
+
+            [image retrieve: ^{
+                NSArray* pathComponents = [NSArray arrayWithObjects: dirPath, [image categoryKey], nil];
+                NSString* path = [NSString pathWithComponents: pathComponents];
+                [image save: path];
+                [self incCurrentCount];
+                [self setCurrentImageNameWithImage: image];
+                [self updateProgress];
+                NSURL* currentURL = [[self directoryURL] URLByAppendingPathComponent: [image categoryKey]];
+                [self appendExportedURL: currentURL];
+                if ([self isFinished]) {
+                    [self finished];
+                }
+                dispatch_semaphore_signal(parallel);
+            }
+               errorHandler: ^{
+                NSLog(@"An error occured while retrieve %@", [image name]);
+                dispatch_semaphore_signal(parallel);
+            }];
+        }
+    });
+    if ([fetchResult count] == 0) {
+        [self finished];
+    }
     
+    /*
     [fetchResult enumerateObjectsUsingBlock: ^(PHAsset* asset, NSUInteger idx, BOOL* stop) {
         Image* image = [[Image alloc] initWithPHAsset: asset];
         dispatch_semaphore_t parallel = dispatch_semaphore_create(1);
@@ -78,7 +116,7 @@
             NSString* path = [NSString pathWithComponents: pathComponents];
             [image save: path];
             [self incCurrentCount];
-            [self setCurrentImage: image];
+            [self setCurrentImageNameWithImage: image];
             [self updateProgress];
             NSURL* currentURL = [[self directoryURL] URLByAppendingPathComponent: [image categoryKey]];
             [self appendExportedURL: currentURL];
@@ -90,19 +128,39 @@
             NSLog(@"An error occured while retrieve %@", [image name]);
         }];
     }];
+     */
+}
+
+- (void) disableControls {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self dpBegin] setEnabled: NO];
+        [[self dpEnd] setEnabled: NO];
+        [[self btnSubmit] setEnabled: NO];
+    });
+}
+
+- (void) enableControls {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[self dpBegin] setEnabled: YES];
+        [[self dpEnd] setEnabled: YES];
+        [[self btnSubmit] setEnabled: YES];
+    });
+}
+
+- (void) setCurrentImageNameWithImage: (Image*) image {
+    NSString* progressText;
+    if (image == nil) {
+        progressText = @"";
+    } else {
+        progressText = [NSString stringWithFormat: @"[%ld/%ld] %@/%@", [self currentCount], [self totalCount], [image categoryKey], [image name]];
+    }
+    [self setCurrentImageName: progressText];
+    
 }
 
 - (void) updateProgress {
-    Image* currentImage = [self currentImage];
-    NSString* progressText;
-    if (currentImage == nil) {
-        progressText = @"";
-    } else {
-        progressText = [NSString stringWithFormat: @"%d/%d %@/%@", [self currentCount], [self totalCount], [currentImage categoryKey], [currentImage name]];
-    }
-    NSLog(@"progress text: %@", progressText);
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[self txtProgress] setStringValue: progressText];
+        [[self txtProgress] setStringValue: [self currentImageName]];
         [[self progressBar] setDoubleValue: [self currentCount] * 100.0 / [self totalCount]];
     });
 }
@@ -122,6 +180,7 @@
         NSLog(@"%@", [self exportedURLs]);
         [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs: [self exportedURLs]];
     });
+    [self enableControls];
 
 }
 

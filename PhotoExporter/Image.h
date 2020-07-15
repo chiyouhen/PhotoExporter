@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable) CNPostalAddress* postalAddress;
 @property void(^retrievedHandler)(void);
 @property void(^retrieveErrorHandler)(void);
-@property (nonnull) dispatch_semaphore_t parallel;
 @property (nonnull) NSString* categoryKey;
 @property (nonnull) NSString* name;
 @property (nullable) NSError* error;

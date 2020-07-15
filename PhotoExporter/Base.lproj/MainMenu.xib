@@ -45,7 +45,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="583" height="444"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="583" height="444"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -149,6 +149,7 @@
         </window>
         <customObject id="fbX-IL-17A" customClass="AppController">
             <connections>
+                <outlet property="btnSubmit" destination="AJE-8M-VTL" id="R1l-8A-nRR"/>
                 <outlet property="dpBegin" destination="evy-EP-E8j" id="kL2-72-IOq"/>
                 <outlet property="dpEnd" destination="bqf-e6-Rpx" id="dvn-96-wuC"/>
                 <outlet property="progressBar" destination="avl-1t-Bbf" id="K1Y-Ft-Nd0"/>

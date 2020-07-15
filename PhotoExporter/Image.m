@@ -26,7 +26,6 @@
 
 - (int) retrieveImage {
     if ([self image] != nil) {
-        dispatch_semaphore_signal([self parallel]);
         if ([self retrieved]) {
             [self retrievedHandler]();
         }
@@ -43,13 +42,11 @@
     [imageRequestOptions setDeliveryMode: PHImageRequestOptionsDeliveryModeHighQualityFormat];
     [imageRequestOptions setNetworkAccessAllowed: YES];
     
-    dispatch_semaphore_wait([self parallel], DISPATCH_TIME_FOREVER);
     [phImageManager requestImageForAsset: asset
                               targetSize: imageSize
                              contentMode: PHImageContentModeDefault
                                  options: imageRequestOptions
                            resultHandler: ^(NSImage* result, NSDictionary* info){
-        dispatch_semaphore_signal([self parallel]);
         
         NSError* error = info[PHImageErrorKey];
         if (error != nil) {
@@ -87,13 +84,11 @@
 
 - (int) retrieveGeocode {
     if ([self postalAddress] != nil) {
-        dispatch_semaphore_signal([self parallel]);
         [self geocodeRetrieved];
         return 0;
     }
     CLLocation* assetLocation = [[self asset] location];
     if (assetLocation == nil) {
-        dispatch_semaphore_signal([self parallel]);
         [self setPostalAddress: nil];
         [self geocodeRetrieved];
         return 0;
@@ -103,10 +98,8 @@
      */
     BDGeoCoder* geocoder = [[BDGeoCoder alloc] init];
     
-    dispatch_semaphore_wait([self parallel], DISPATCH_TIME_FOREVER);
     [geocoder reverseGeocodeLocation: assetLocation
                    completionHandler: ^(CNPostalAddress* postalAddress, NSError* error) {
-        dispatch_semaphore_signal([self parallel]);
         
         if (error != nil) {
             [self setError: error];
@@ -125,9 +118,6 @@
 - (id) initWithPHAsset: (PHAsset*) asset {
     if (self = [super init]) {
         [self setAsset: asset];
-        if ([self parallel] == nil) {
-            [self setParallel: dispatch_semaphore_create(1)];
-        }
         NSArray<PHAssetResource*>* phAssetResources = [PHAssetResource assetResourcesForAsset: [self asset]];
         for (PHAssetResource* res in phAssetResources) {
             if ([res type] == PHAssetResourceTypePhoto) {
